@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Bungie</title>
+</head>
+<body>
+    <h1>Login to Bungie.net</h1>
+    <a id="login-link" href="#">Login with Bungie</a>
+
+    <script>
+        const clientId = '46945'; // 替换为您的实际客户端 ID
+        const redirectUri = 'https://localhost:3000/callback'; // 确保与 Bungie 配置的重定向 URI 匹配
+
+        document.getElementById('login-link').href = `https://www.bungie.net/en/OAuth/Authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&state=someState`;
+    </script>
+</body>
+</html>
