@@ -6,6 +6,7 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
 import { getUserInfo } from './GetUserInfo.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,12 +15,22 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
+// 使用静态文件
 const publicPath = path.join(__dirname, '../../Web');
 app.use(express.static(publicPath));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// 设置 session 中间件
+app.use(session({
+    secret: 'your_secret_key', // Replace with a strong secret
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using https
+}));
+
+// 现有的回调路由
 app.get('/callback', async (req, res) => {
     const { code } = req.query;
     console.log('Received authorization code:', code);
@@ -46,43 +57,28 @@ app.get('/callback', async (req, res) => {
         const userInfo = await getUserInfo(accessToken, process.env.API_KEY);
         console.log('User information:', JSON.stringify(userInfo, null, 2)); // 输出完整的 userInfo 结构
 
-        const {
-            membershipId,
-            uniqueName,
-            displayName,
-            profilePicturePath,
-            profileTheme,
-            firstAccess,
-            lastUpdate,
-            steamDisplayName
-        } = userInfo.user;
+        // 使用 session 存储用户信息
+        req.session.userInfo = userInfo.user;
 
-        res.send(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>User Information</title>
-            </head>
-            <body>
-                <h1>User Information</h1>
-                <ul>
-                    <li>Membership ID: ${membershipId}</li>
-                    <li>Unique Name: ${uniqueName}</li>
-                    <li>Display Name: ${displayName}</li>
-                    <li>Profile Picture: <img src="https://www.bungie.net${profilePicturePath}" alt="Profile Picture"></li>
-                    <li>Profile Theme: ${profileTheme}</li>
-                    <li>First Access: ${firstAccess}</li>
-                    <li>Last Update: ${lastUpdate}</li>
-                    <li>Steam Display Name: ${steamDisplayName}</li>
-                </ul>
-            </body>
-            </html>
-        `);
+        // 重定向到 profile 页面
+        res.redirect('/profile');
     } catch (error) {
         console.error('Error retrieving user information:', error.response ? error.response.data : error.message);
         res.status(500).send('Error retrieving user information');
+    }
+});
+
+// 路由以提供 Profile.html 文件
+app.get('/profile', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../Web/Profile.html')); // 确保路径正确
+});
+
+// 路由以向前端提供用户个人资料数据
+app.get('/getUserProfile', (req, res) => {
+    if (req.session && req.session.userInfo) {
+        res.json(req.session.userInfo);
+    } else {
+        res.status(400).json({ error: 'User not authenticated' });
     }
 });
 
