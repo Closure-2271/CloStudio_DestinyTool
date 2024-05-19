@@ -44,8 +44,42 @@ app.get('/callback', async (req, res) => {
         const accessToken = tokenResponse.data.access_token;
 
         const userInfo = await getUserInfo(accessToken, process.env.API_KEY);
-        console.log('User information:', userInfo);
-        res.json(userInfo);
+        console.log('User information:', JSON.stringify(userInfo, null, 2)); // 输出完整的 userInfo 结构
+
+        const {
+            membershipId,
+            uniqueName,
+            displayName,
+            profilePicturePath,
+            profileTheme,
+            firstAccess,
+            lastUpdate,
+            steamDisplayName
+        } = userInfo.user;
+
+        res.send(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>User Information</title>
+            </head>
+            <body>
+                <h1>User Information</h1>
+                <ul>
+                    <li>Membership ID: ${membershipId}</li>
+                    <li>Unique Name: ${uniqueName}</li>
+                    <li>Display Name: ${displayName}</li>
+                    <li>Profile Picture: <img src="https://www.bungie.net${profilePicturePath}" alt="Profile Picture"></li>
+                    <li>Profile Theme: ${profileTheme}</li>
+                    <li>First Access: ${firstAccess}</li>
+                    <li>Last Update: ${lastUpdate}</li>
+                    <li>Steam Display Name: ${steamDisplayName}</li>
+                </ul>
+            </body>
+            </html>
+        `);
     } catch (error) {
         console.error('Error retrieving user information:', error.response ? error.response.data : error.message);
         res.status(500).send('Error retrieving user information');
@@ -57,6 +91,8 @@ const options = {
     cert: fs.readFileSync(path.join(__dirname, '../Certs/server.crt'))
 };
 
-https.createServer(options, app).listen(port, () => {
-    console.log(`HTTPS Server running at https://localhost:${port}/`);
-});
+export function startServer() {
+    https.createServer(options, app).listen(port, () => {
+        console.log(`HTTPS Server running at https://localhost:${port}/`);
+    });
+}

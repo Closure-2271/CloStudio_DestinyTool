@@ -4,16 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login to Bungie</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./Icon/ghostIco.png">
 </head>
 <body>
-    <h1>Login to Bungie.net</h1>
-    <a id="login-link" href="#">Login with Bungie</a>
+    <div class="top-line">
+        <div class="scrolling-text">Welcome to Bungie.net</div>
+    </div>
 
-    <script>
-        const clientId = '46945'; // 替换为您的实际客户端 ID
-        const redirectUri = 'https://localhost:3000/callback'; // 确保与 Bungie 配置的重定向 URI 匹配
+    <div class="container">
+        <h1>Login to Bungie.net</h1>
+        <a id="login-link" href="#">Login with Bungie</a>
+    </div>
 
-        document.getElementById('login-link').href = `https://www.bungie.net/en/OAuth/Authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&state=someState`;
-    </script>
+    <div class="downimage">
+        <div class="slide-track">
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+            <div class="downslide"><img src="./Icon/downslideL.png" alt="image error"></div>
+        </div>
+    </div>
+    <script src="./Script/SilentLogin.js"></script>
 </body>
 </html>
