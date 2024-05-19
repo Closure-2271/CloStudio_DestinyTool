@@ -3,9 +3,17 @@
     padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+    font-family: 'Bender';
+    src: url('./Font/Bender.otf');
+    font-family: 'NotoSans';
+    src: url('./Font/Novecento-Wide-Bold-2.otf');
 
+  }
+  
+                          
 body {
-    font-family: Arial, sans-serif;
+    font-family: NotoSans;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
