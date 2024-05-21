@@ -19,8 +19,8 @@
     width: 15%;
     height: 15%;
     background-color: aqua;
-    position: absolute;
     display: block;
+    position: absolute;
 }
 #profilePicture{
     background-color: aliceblue;
@@ -31,4 +31,20 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#Llist{
+    top: 15%;
+    width: 15%;
+    height: 90%;
+    position: absolute;
+    background-color: steelblue;
+}
+#TopEmblem{
+    top: 85%;
+    height: 15%;
+    background-color: violet;
+    left: 15%;
+}
+#Emblem{
 }
