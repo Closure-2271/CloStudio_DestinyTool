@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <link rel="stylesheet" href="./Profile.css">
 </head>
 <body>
-    <h1>User Profile</h1>
+    <div id="avater">
+
+        <img id="profilePicture" src="" alt="头像">
+    </div>
     <div id="user-profile">
         <ul>
-            <li>Unique Name: <span id="uniqueName">Loading...</span></li>
-            <li>Last Update: <span id="lastUpdate">Loading...</span></li>
-            <li>Profile Picture: <img id="profilePicture" src="" alt="Profile Picture"></li>
+            <li>ID: <span id="uniqueName">Loading...</span></li>
+            <li>上次在线时间: <span id="lastUpdate">Loading...</span></li>
         </ul>
     </div>
     <script src="./Script/Profile.js"></script>
+    <script src="/Server/Locol/GetUserEmbelt.js"></script>
 </body>
 </html>

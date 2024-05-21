@@ -62,7 +62,7 @@ a:hover {
 
 .slide-track {
     display: flex;
-    width: calc(200% * 10); /* 10 images in the track */
+    width: calc(200% * 10);
     animation: scroll 20s linear infinite;
 }
 
@@ -111,7 +111,7 @@ a:hover {
     white-space: nowrap;
     position: absolute;
     left: 100%;
-    animation: textScroll 10s linear infinite;
+    animation: textScroll 15s linear infinite;
     animation-delay: 2s;
     visibility: hidden;
 }

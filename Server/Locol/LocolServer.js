@@ -15,22 +15,19 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
-// 使用静态文件
 const publicPath = path.join(__dirname, '../../Web');
 app.use(express.static(publicPath));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 设置 session 中间件
 app.use(session({
-    secret: 'your_secret_key', // Replace with a strong secret
+    secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using https
+    cookie: { secure: false }
 }));
 
-// 现有的回调路由
 app.get('/callback', async (req, res) => {
     const { code } = req.query;
     console.log('Received authorization code:', code);
@@ -55,12 +52,10 @@ app.get('/callback', async (req, res) => {
         const accessToken = tokenResponse.data.access_token;
 
         const userInfo = await getUserInfo(accessToken, process.env.API_KEY);
-        console.log('User information:', JSON.stringify(userInfo, null, 2)); // 输出完整的 userInfo 结构
+        console.log('User information:', JSON.stringify(userInfo, null, 2));
 
-        // 使用 session 存储用户信息
         req.session.userInfo = userInfo.user;
 
-        // 重定向到 profile 页面
         res.redirect('/profile');
     } catch (error) {
         console.error('Error retrieving user information:', error.response ? error.response.data : error.message);
@@ -68,12 +63,10 @@ app.get('/callback', async (req, res) => {
     }
 });
 
-// 路由以提供 Profile.html 文件
 app.get('/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../Web/Profile.html')); // 确保路径正确
+    res.sendFile(path.join(__dirname, '../../Web/Profile.html'));
 });
 
-// 路由以向前端提供用户个人资料数据
 app.get('/getUserProfile', (req, res) => {
     if (req.session && req.session.userInfo) {
         res.json(req.session.userInfo);

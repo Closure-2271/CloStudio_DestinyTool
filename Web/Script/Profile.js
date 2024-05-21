@@ -6,10 +6,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const userInfo = await response.json();
 
-        // 直接访问 user 对象中的数据
         const { uniqueName, lastUpdate, profilePicturePath } = userInfo;
 
-        // 更新占位符元素的内容
         document.getElementById('uniqueName').textContent = uniqueName;
         document.getElementById('lastUpdate').textContent = lastUpdate;
         document.getElementById('profilePicture').src = `https://www.bungie.net${profilePicturePath}`;

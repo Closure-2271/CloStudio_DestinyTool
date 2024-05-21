@@ -8,7 +8,7 @@ export async function getUserInfo(accessToken, apiKey) {
                 'X-API-Key': apiKey
             }
         });
-        return response.data.Response; // 确保返回的是 Response 对象
+        return response.data.Response;
     } catch (error) {
         console.error('Error retrieving user information:', error.response ? error.response.data : error.message);
         throw error;
