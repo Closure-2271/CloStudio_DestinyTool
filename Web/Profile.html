@@ -8,26 +8,29 @@
 </head>
 <body>
     <div id="avater">
-
-        <img id="profilePicture" src="./Icon/ghostIco.png" alt="avater">
+        <img id="profilePicture" src="" alt="avater">
         ID: <span id="uniqueName">Loading...</span>
         上次在线时间: <span id="lastUpdate">Loading...</span>
     </div>
     <div id="TopEmblem">
         <img id="Emblem" src="" alt="emblem">
     </div>
+    
     <div id="Llist">
         <ul>
-            <li id="Llist_1">装备</li>
-            <li id="Llist_1">库存</li>
-            <li id="Llist_1">战绩</li>
-            <li id="Llist_1"></li>
+            <li id="Llist_1"><a href="./callback.html">装备</a></li>
+            <li id="Llist_2"><a href="./callback.html">库存</a></li>
+            <li id="Llist_3"><a href="./callback.html">战绩</a></li>
+            <li id="Llist_4"><a href="./callback.html">设置</a></li>
+            <li id="Llist_5"><a href="https://app.destinyitemmanager.com/" id="dimLink">DIM</a></li>
         </ul>
     </div>
-    <div id="user-profile">
 
+    <div id="user-profile">
+        <webview id="dimWebView" style="display: none;"></webview>
     </div>
+
+    <script src="./Script/WebInWeb.js"></script>
     <script src="./Script/Profile.js"></script>
-    <script src="/Server/Locol/GetUserEmbelt.js"></script>
 </body>
 </html>

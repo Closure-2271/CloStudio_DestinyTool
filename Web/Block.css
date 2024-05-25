@@ -1,0 +1,97 @@
+@font-face {
+    font-family:"Bender";
+    src: url(./font/Bender.ttf);
+}
+body {
+    font-family:"Bender";
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.yellow-section {
+    height: 33.33vh;
+    background-color: rgb(0, 0, 0);
+    animation: slideDown 1s ease-out;
+}
+
+.red-line {
+    height: 10px;
+    background-color: red;
+    width: 0;
+    animation: expandLine 2s ease-out 1s forwards;
+}
+
+.text-section {
+    height: 13.33vh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.text-section p {
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    position: absolute; /* Position the text absolutely */
+    top: 65%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+}
+
+.button-goback {
+    text-align: center;
+}
+
+button {
+    padding: 10px 42px;
+    margin-top: 300px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+    
+}
+.title{
+    font-size: xx-large;
+    color: red;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.image-container {
+    position: absolute;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centered-image {
+    max-width: 40%;
+    max-height: 80%;
+    display: block;
+    margin: auto;
+}
+

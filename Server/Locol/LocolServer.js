@@ -8,6 +8,7 @@ import https from 'https';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
 import { getUserInfo } from './GetUserInfo.js';
+import { getUserEmblem } from './GetUserEmblem.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,12 +51,14 @@ app.get('/callback', async (req, res) => {
         console.log('Token response:', tokenResponse.data);
 
         const accessToken = tokenResponse.data.access_token;
-
         const userInfo = await getUserInfo(accessToken, process.env.API_KEY);
         console.log('User information:', JSON.stringify(userInfo, null, 2));
 
         req.session.userInfo = userInfo.user;
+        req.session.membershipType = 3; // 根据实际情况设置 membershipType
+        req.session.membershipId = userInfo.user.membershipId;
 
+        res.cookie('access_token', accessToken, { httpOnly: true });
         res.redirect('/profile');
     } catch (error) {
         console.error('Error retrieving user information:', error.response ? error.response.data : error.message);
@@ -69,9 +72,30 @@ app.get('/profile', (req, res) => {
 
 app.get('/getUserProfile', (req, res) => {
     if (req.session && req.session.userInfo) {
-        res.json(req.session.userInfo);
+        const userProfile = {
+            ...req.session.userInfo,
+            membershipType: req.session.membershipType,
+            membershipId: req.session.membershipId
+        };
+        res.json(userProfile);
     } else {
         res.status(400).json({ error: 'User not authenticated' });
+    }
+});
+
+app.get('/proxy', async (req, res) => {
+    try {
+        const url = req.query.url;
+        const response = await axios.get(url, {
+            responseType: 'text',
+            headers: {
+                'Authorization': `Bearer ${req.cookies.access_token}`
+            }
+        });
+        res.send(response.data);
+    } catch (error) {
+        console.error('Error fetching URL:', error);
+        res.status(500).send('Error fetching URL');
     }
 });
 
