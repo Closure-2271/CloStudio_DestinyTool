@@ -1,4 +1,6 @@
-import { screen } from 'electron';
+import electron from 'electron';
+const { screen } = electron;
+
 
 export function getWindowSize() {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -8,7 +10,7 @@ export function getWindowSize() {
     return {
         width: windowWidth,
         height: windowHeight,
-        minWidth: 800,
-        minHeight: 1000
+        minWidth: 1000,
+        minHeight: 1600
     };
 }

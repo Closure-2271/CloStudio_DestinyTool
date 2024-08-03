@@ -21,8 +21,8 @@ function createWindow() {
     const windowSize = getWindowSize();
 
     const mainWindow = new BrowserWindow({
-        width: windowSize.width || 800,
-        height: windowSize.height || 1000,
+        width: windowSize.width || 1200,
+        height: windowSize.height || 1600,
 
         resizable: true,
         fullscreen: false,
